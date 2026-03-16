@@ -13,6 +13,6 @@ pip install -r requirements.txt
 ```
 2. Run the web application:
 ```bash
-Run the web application:
+streamlit run app.py
 ```
-3. Select the desired Intake and Year at the top of the page to view module offerings for each program.
+3. Select the desired quarter and year at the top of the page to view module offerings for each program.

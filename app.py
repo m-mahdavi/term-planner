@@ -2,12 +2,36 @@ import os
 import pandas as pd
 import streamlit as st
 
-st.set_page_config(page_title="Term Planner", layout="wide")
+st.set_page_config(page_title="Term Planner", layout="centered")
 
+
+SEQUENCE_B = {
+    "Oct": ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "2D", "3A", "3B", "3C", "3D"],
+    "Jan": ["1B", "1C", "1D", "1A", "2B", "2C", "2D", "2A", "3B", "3A", "3C", "3D"],
+    "Apr": ["1C", "1D", "1A", "1B", "2C", "2D", "2A", "2B", "3A", "3B", "3C", "3D"],
+    "Jul": ["1D", "1A", "1B", "1C", "2D", "2A", "2B", "2C", "3B", "3A", "3C", "3D"]
+}
+SEQUENCE_M12 = {
+    "Oct": ["1A", "1B", "1C", "1D"],
+    "Jan": ["1B", "1C", "1A", "1D"],
+    "Apr": ["1A", "1B", "1C", "1D"],
+    "Jul": ["1B", "1C", "1A", "1D"]
+}
+SEQUENCE_M18 = {
+    "Oct": ["1A", "1B", "1C", "1D", "2A", "2B"],
+    "Jan": ["1B", "1C", "1D", "1A", "2A", "2B"],
+    "Apr": ["1A", "1B", "1C", "1D", "2A", "2B"],
+    "Jul": ["1B", "1C", "1D", "1A", "2A", "2B"]
+}
+SEQUENCE_M24 = {
+    "Oct": ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "2D"],
+    "Jan": ["1B", "1C", "1D", "1A", "2B", "2A", "2C", "2D"],
+    "Apr": ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "2D"],
+    "Jul": ["1B", "1C", "1D", "1A", "2B", "2A", "2C", "2D"]
+}
 QUARTERS = ["Oct", "Jan", "Apr", "Jul"]
 YEARS = [2026, 2027, 2028, 2029]
-SEQUENCE_STANDARD = ["A", "B", "C", "D"]
-SEQUENCE_B_Y3 = ["A", "B", "A", "B"]
+
 
 st.title("Term Planner")
 
@@ -17,67 +41,67 @@ with col1:
 with col2:
     year = st.selectbox("Select year:", YEARS)
 
-q_index = QUARTERS.index(quarter)
-
 intakes = []
-qi = q_index
-y = year
-q = QUARTERS[qi]
+qi, y = QUARTERS.index(quarter), year
 while len(intakes) < 12:
+    q = QUARTERS[qi]
     intakes.append((q, y))
     qi -= 1
     if qi < 0:
         qi = len(QUARTERS) - 1
-    q = QUARTERS[qi]
-    if q == "Oct":
+    if q == "Jan":
         y -= 1
 
-year1_intakes = [f"{q} {y}" for q, y in intakes[:4]]
-year2_intakes = [f"{q} {y}" for q, y in intakes[4:8]]
-year3_intakes = [f"{q} {y}" for q, y in intakes[8:10]]
+def build_quarter_intake_mapping(intakes, sequence):
+    mapping = {}
+    for i, intake in enumerate(intakes):
+        if i < len(sequence[intake[0]]):
+            q = sequence[intake[0]][i]
+            if q not in mapping:
+                mapping[q] = []
+            mapping[q].append(intake)
+    return mapping
 
-def get_foundation_modules(df, q_index):
-    q = SEQUENCE_STANDARD[q_index]
-    return df[df["Quarter"] == q]
+quarter_intake_mapping_b = build_quarter_intake_mapping(intakes, SEQUENCE_B)
+quarter_intake_mapping_m12 = build_quarter_intake_mapping(intakes, SEQUENCE_M12)
+quarter_intake_mapping_m18 = build_quarter_intake_mapping(intakes, SEQUENCE_M18)
+quarter_intake_mapping_m24 = build_quarter_intake_mapping(intakes, SEQUENCE_M24)
 
-def get_bachelor_modules(df, q_index):
-    q_y12 = SEQUENCE_STANDARD[q_index]
-    q_y3 = SEQUENCE_B_Y3[q_index]
-
-    return df[
-        ((df["Year"].isin([1,2])) & (df["Quarter"] == q_y12)) |
-        ((df["Year"] == 3) & (df["Quarter"] == q_y3))
-    ]
+def build_result_table(df, quarter_mapping):
+    parts = []
+    for key, intake_list in quarter_mapping.items():
+        year_val = int(key[0])
+        quarter_val = key[1]
+        filtered = df[
+            (df["Year"] == year_val) &
+            (df["Quarter"] == quarter_val)
+        ].copy()
+        filtered["Intakes"] = ", ".join(f"{q} {y}" for q, y in intake_list)
+        parts.append(filtered)
+    if parts:
+        return pd.concat(parts).reset_index(drop=True)
+    return pd.DataFrame(columns=df.columns.tolist() + ["Intakes"])
 
 for file in sorted(os.listdir("programs")):
     if not file.endswith(".csv"):
         continue
 
-    program_name = file.split(".")[0].upper()
+    program_name, program_version = file.split(".")[0].split("_")
+    st.subheader(program_name.upper() + " - " + program_version.upper())
     df = pd.read_csv(os.path.join("programs", file))
 
-    st.subheader(program_name)
-
-    if file.startswith("f"):
-        result = get_foundation_modules(df, q_index)
-    elif file.startswith("b"):
-        result = get_bachelor_modules(df, q_index)
+    if program_version in ["f", "p"]:
+        result = df[df["Quarter"] == ["A", "B", "C", "D"][QUARTERS.index(quarter)]].copy()
+    elif program_version == "b":
+        result = build_result_table(df, quarter_intake_mapping_b)
+    elif program_version == "m12":
+        result = build_result_table(df, quarter_intake_mapping_m12)
+    elif program_version == "m18":
+        result = build_result_table(df, quarter_intake_mapping_m18)
+    elif program_version == "m24":
+        result = build_result_table(df, quarter_intake_mapping_m24)
     else:
         continue
-
-    result = result.copy()
-
-    def map_intakes(row):
-        if row["Year"] == 1:
-            return ", ".join(year1_intakes)
-        elif row["Year"] == 2:
-            return ", ".join(year2_intakes)
-        elif row["Year"] == 3:
-            return ", ".join(year3_intakes)
-        else:
-            return ""
-
-    result["Intakes"] = result.apply(map_intakes, axis=1)
+        
     result = result.reset_index(drop=True)
-
     st.dataframe(result, use_container_width=True, hide_index=True)

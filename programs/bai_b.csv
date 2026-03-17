@@ -1,0 +1,31 @@
+﻿Year,Quarter,Module Code,Module Name
+1,A,B100,Computer Programming
+1,A,B101,Data Structures & Algorithms
+1,A,B103,Databases & Big Data
+1,B,B125,Mathematical Foundations
+1,B,B117,Foreign Language
+1,C,B201,Computer Science Lab
+1,C,B113,Project Management
+1,C,B229,Scientific Work for Computer Science
+1,D,B119,Creative Problem Solving & Strategy Development
+1,D,B123,Statistics
+2,A,B202,Advanced Programming
+2,A,B208,Advanced Algorithms
+2,A,B230,Computer Systems
+2,B,B231,Information Technology Fundamentals
+2,B,B232,Artificial Intelligence Fundamentals
+2,B,B233,Software Engineering Fundamentals
+2,C,B234,Statistical Inference
+2,C,B235,Machine Learning
+2,C,B106,Data Visualisation
+2,D,B236,Information Retrieval 
+2,D,B237,Natural Language Processing
+2,D,B238,Computer Vision
+3,A,,Computer Scinece Project 1
+3,A,,Computer Scinece Project 2
+3,A,,Computer Science Seminar 1
+3,B,,Computer Scinece Project 3
+3,B,,Computer Scinece Project 4
+3,B,,Computer Science Seminar 2
+3,C,B120,Internship
+3,D,B199,Bachelor Thesis

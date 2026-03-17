@@ -104,4 +104,4 @@ for file in sorted(os.listdir("programs")):
         continue
         
     result = result.reset_index(drop=True)
-    st.dataframe(result, use_container_width=True, hide_index=True)
+    st.dataframe(result, use_container_width=True, height=len(result)*35 + 40, hide_index=True)

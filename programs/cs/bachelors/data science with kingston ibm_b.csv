@@ -1,20 +1,20 @@
 ﻿Year,Quarter,Module Code,Module Name
-1,A,,Global Business Environment
-1,B,,Marketing & Sales
+1,A,BS4207,Global Business Environment
+1,B,BM5212,Marketing & Sales
 1,C,B100,Computer Programming
 1,C,B101,Data Structures & Algorithms
 1,C,B103,Databases & Big Data
 1,D,B125,Mathematical Foundations
 1,D,B114,Innovation Management in a Digital and Globalised World
-2,A,,Accounting and Financial Management
+2,A,BA5812,Accounting and Financial Management
 2,B,,Managing Across Cultures and Borders
 2,C,B141,Data Mining
 2,C,B142,Data Integration
 2,C,B112,Sustainability Management
 2,D,B104,Artificial Intelligence & Machine Learning
 2,D,B106,Data Visualisation
-3,A,,"Leadership, Transformation and Complexity"
-3,B,,"Global Business Practice, Operations and Trade"
+3,A,BH6016,"Leadership, Transformation and Complexity"
+3,B,BB4207,"Global Business Practice, Operations and Trade"
 3,C,B120,Internship
 3,D,B109,Digital Transformation & Cases
 3,D,B199,Bachelor Thesis

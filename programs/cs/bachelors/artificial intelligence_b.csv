@@ -10,22 +10,20 @@
 1,D,B119,Creative Problem Solving & Strategy Development
 1,D,B123,Statistics
 2,A,B202,Advanced Programming
-2,A,B208,Advanced Algorithms
+2,A,B112,Sustainability Management
 2,A,B230,Computer Systems
-2,B,B231,Information Technology Fundamentals
-2,B,B232,Artificial Intelligence Fundamentals
-2,B,B233,Software Engineering Fundamentals
+2,B,B208,Advanced Algorithms
+2,B,B232,Artificial Intelligence
+2,B,B203,Software Engineering
 2,C,B234,Statistical Inference
 2,C,B235,Machine Learning
 2,C,B106,Data Visualisation
 2,D,B236,Information Retrieval 
 2,D,B237,Natural Language Processing
 2,D,B238,Computer Vision
-3,A,,Computer Scinece Project 1
-3,A,,Computer Scinece Project 2
-3,A,,Computer Science Seminar 1
-3,B,,Computer Scinece Project 3
-3,B,,Computer Scinece Project 4
-3,B,,Computer Science Seminar 2
+3,A,B198c8,End-to-End Computer Science Project
+3,A,B198c19,Computer Science Seminar
+3,B,B198c3,Business Start-up Simulation
+3,B,B198c7,AI Applications for Digital Business
 3,C,B120,Internship
 3,D,B199,Bachelor Thesis

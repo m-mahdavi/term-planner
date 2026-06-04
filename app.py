@@ -102,7 +102,7 @@ col_a, col_b = st.columns(2)
 with col_a:
     show_bs = st.checkbox("Business School (BS)")
 with col_b:
-    show_cs = st.checkbox("Computer Science (CS)")
+    show_cs = st.checkbox("Computer Science School (CS)")
 
 
 intakes = []

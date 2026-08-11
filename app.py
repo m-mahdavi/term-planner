@@ -37,12 +37,12 @@ SEQUENCES = {
         "Apr": ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "2D"],
         "Jul": ["1B", "1C", "1D", "1A", "2B", "2A", "2C", "2D"]
     },
-    "mkibm": {
-        "Oct": ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "2D"],
-        "Jan": ["1B", "1C", "1D", "1A", "2B", "2A", "2C", "2D"],
-        "Apr": ["1C", "1D", "1A", "1B", "2A", "2B", "2C", "2D"],
-        "Jul": ["1C", "1A", "1B", "1D", "2B", "2A", "2C", "2D"] 
-    }
+    # "mkibm": {
+    #     "Oct": ["1A", "1B", "1C", "1D", "2A", "2B", "2C", "2D"],
+    #     "Jan": ["1B", "1C", "1D", "1A", "2B", "2A", "2C", "2D"],
+    #     "Apr": ["1C", "1D", "1A", "1B", "2A", "2B", "2C", "2D"],
+    #     "Jul": ["1C", "1A", "1B", "1D", "2B", "2A", "2C", "2D"] 
+    # }
 }
 QUARTERS = ["Oct", "Jan", "Apr", "Jul"]
 YEARS = [datetime.datetime.now().year + i for i in range(5)]
@@ -102,7 +102,7 @@ col_a, col_b = st.columns(2)
 with col_a:
     show_bs = st.checkbox("Business School (BS)")
 with col_b:
-    show_cs = st.checkbox("Computer Science School (CS)")
+    show_css = st.checkbox("Computer Science School (CSS)")
 
 
 intakes = []
@@ -121,9 +121,9 @@ if show_bs:
     files = load_program_files(os.path.join("programs", "bs"))
     for f in files: f["school"] = "Business School (BS)"
     selected_files.extend(files)
-if show_cs:
-    files = load_program_files(os.path.join("programs", "cs"))
-    for f in files: f["school"] = "Computer Science School (CS)"
+if show_css:
+    files = load_program_files(os.path.join("programs", "css"))
+    for f in files: f["school"] = "Computer Science School (CSS)"
     selected_files.extend(files)
 
 current_school = None
